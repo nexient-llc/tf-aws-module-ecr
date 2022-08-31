@@ -12,8 +12,44 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-resource "random_string" "string" {
-  length  = var.length
-  number  = var.number
-  special = var.special
+resource "aws_ecr_repository" "repo" {
+  name                 = var.repo_name
+  image_tag_mutability = var.image_tag_mutability
+}
+
+resource "aws_ecr_lifecycle_policy" "policy" {
+  repository = aws_ecr_repository.repo.name
+
+  policy = <<EOF
+{
+    "rules": [
+        {
+            "rulePriority": 1,
+            "description": "Expire images older than ${var.untagged_count_keep} days",
+            "selection": {
+                "tagStatus": "untagged",
+                "countType": "sinceImagePushed",
+                "countUnit": "days",
+                "countNumber": ${var.untagged_count_keep}
+            },
+            "action": {
+                "type": "expire"
+            }
+        },
+        {
+            "rulePriority": 2,
+            "description": "Keep last ${var.tagged_count_keep} images",
+            "selection": {
+                "tagStatus": "any",
+                "countType": "imageCountMoreThan",
+                "countNumber": ${var.tagged_count_keep}
+            },
+            "action": {
+                "type": "expire"
+            }
+        }
+    ]
+}
+EOF
+
 }

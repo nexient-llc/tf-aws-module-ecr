@@ -12,6 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "string" {
-  value = random_string.string.result
+output "arn" {
+  value = aws_ecr_repository.repo.arn
+}
+
+output "name" {
+  value = aws_ecr_repository.repo.name
+}
+
+output "registry_id" {
+  value = aws_ecr_repository.repo.registry_id
+}
+
+output "repository_url" {
+  value = aws_ecr_repository.repo.repository_url
 }
