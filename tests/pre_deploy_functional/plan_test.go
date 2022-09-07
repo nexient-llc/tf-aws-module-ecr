@@ -17,15 +17,18 @@ package test
 import (
 	"path"
 	"testing"
-
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRandomWithCakeExample(t *testing.T) {
-	tempTestFolder := test_structure.CopyTerraformFolderToTemp(t, "../..", "examples/with_cake")
+var ApprovedProviders = []string{
+	"registry.terraform.io/hashicorp/aws",
+}
+
+func TestRandomDefaultExample(t *testing.T) {
+	tempTestFolder := test_structure.CopyTerraformFolderToTemp(t, path.Join("..", ".."), ".")
 	_ = files.CopyFile(path.Join("..", "..", ".tool-versions"), path.Join(tempTestFolder, ".tool-versions"))
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: tempTestFolder,
