@@ -16,10 +16,10 @@ package test
 
 // Basic imports
 import (
+	"os"
 	"path"
-	"regexp"
 	"testing"
-
+	"regexp"
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
@@ -38,8 +38,10 @@ type TerraTestSuite struct {
 func (suite *TerraTestSuite) SetupSuite() {
 	tempTestFolder := test_structure.CopyTerraformFolderToTemp(suite.T(), "../..", ".")
 	_ = files.CopyFile(path.Join("..", "..", ".tool-versions"), path.Join(tempTestFolder, ".tool-versions"))
+	pwd, _ := os.Getwd()
 	suite.TerraformOptions = terraform.WithDefaultRetryableErrors(suite.T(), &terraform.Options{
 		TerraformDir: tempTestFolder,
+		VarFiles:     [](string){path.Join(pwd, "..", "test.tfvars")},
 	})
 	terraform.InitAndApplyAndIdempotent(suite.T(), suite.TerraformOptions)
 }

@@ -14,6 +14,7 @@
 
 variable "repo_name" {
   description = "Name of the ECR Repo to Create"
+  type        = string
 }
 
 variable "untagged_count_keep" {
