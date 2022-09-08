@@ -37,8 +37,3 @@ module "application" {
 | id             |             |
 | registry_id    |             |
 | repository_url |             |
-
-### Markdown Notes
-<!-- optional markdown-notes-tree directory description starts here -->
-Module to create a ECR Repo with Lifecycle Policies
-<!-- optional markdown-notes-tree directory description ends here -->
