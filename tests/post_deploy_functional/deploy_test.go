@@ -59,10 +59,10 @@ func TestRunSuite(t *testing.T) {
 
 // All methods that begin with "Test" are run as tests within a suite.
 func (suite *TerraTestSuite) TestOutput() {
-	output := terraform.Output(suite.T(), suite.TerraformOptions, "string")
+	output := terraform.Output(suite.T(), suite.TerraformOptions, "arn")
 
 	// Output contains only alphanumeric characters
 	suite.Regexp(regexp.MustCompile("^[A-Za-z0-9]+$"), output)
 
-	suite.Suite.Assert()
+	suite.NotEmpty(output, "The task should have an arn")
 }
