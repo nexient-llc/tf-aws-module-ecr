@@ -63,4 +63,6 @@ func (suite *TerraTestSuite) TestOutput() {
 
 	// Output contains only alphanumeric characters
 	suite.Regexp(regexp.MustCompile("^[A-Za-z0-9]+$"), output)
+
+	suite.Suite.Assert()
 }
