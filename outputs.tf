@@ -12,6 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "string" {
-  value = random_string.string.result
+output "arn" {
+  value       = aws_ecr_repository.repo.arn
+  description = "The Amazon resource name (ARN) that identifies the repo"
+}
+
+output "name" {
+  value       = aws_ecr_repository.repo.name
+  description = "The name of the repository."
+}
+
+output "registry_id" {
+  value       = aws_ecr_repository.repo.registry_id
+  description = "The AWS account ID associated with the registry to which to upload layers"
+}
+
+output "repository_url" {
+  value       = aws_ecr_repository.repo.repository_url
+  description = "The URL for the repository"
 }

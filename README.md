@@ -5,35 +5,35 @@
 
 ## Overview
 
-This module is used to setup an ECR task
+This module is used to create an ECR Repo with Lifecycle Policies
 
 ## Usage
 
+```golang
+module "application" {
+  source = "../../modules/ecs/ecr"
+
+  repo_name            = "application"
+  untagged_count_keep  = "1"
+  tagged_count_keep    = "15"
+  image_tag_mutability = "MUTABLE"
+}
+```
+
 ## Inputs
 
-| Name                     | Description                                           |  Type  |     Default      | Required |
-| ------------------------ | ----------------------------------------------------- | :----: | :--------------: | :------: |
-| name                     | Application Name                                      | string |       n/a        |   yes    |
-| cpu                      | Task CPU units to provision (1 vCPU = 1024 CPU units) | string |      `256`       |   yes    |
-| memory                   | Task memory to provision (in MB)                      | string |      `512`       |   yes    |
-| log_group_name           | Name of the log group to create for task logs         | string |       n/a        |   yes    |
-| log_retention_days       | Set how many days you wish to retain logs             | string |       `7`        |   yes    |
-| task_definition          | Task Definition to create                             | string | `json as string` |   yes    |
-| network_mode             | Set which network mode to use                         | string |    `awsvpc`      |   yes    |
-| requires_compatibilities | Set FARGATE or EC2 Requirement                        | string |    `FARGATE`     |   yes    |
-| kms_key_id               | Optional: Set a KMS Key ID to encrypt logs            | string |       n/a        |    no    |
-| tags                     | Tags to be applied to all resources created           |  map   |     `<map>`      |    no    |
+| Name                 | Description                                          |  Type  |    Default    | Required |
+| -------------------- | ---------------------------------------------------- | :----: | :-----------: | :------: |
+| repo_name            | Name of the ECR Repo to Create                       | string |      n/a      |   yes    |
+| tagged_count_keep    | How many images/tags to keep in repo at any one time | string |    `"20"`     |    no    |
+| untagged_count_keep  | How many days to keep untagged images                | string |     `"1"`     |    no    |
+| image_tag_mutability | Set Tag Mutability (IMMMUTABLE or MUTABLE)           | string | `"IMMUTABLE"` |    no    |
 
 ## Outputs
 
-| Name            | Description                                                                 |
-| --------------- | --------------------------------------------------------------------------- |
-| log_group_name  | The name of the cloudwatch log group where logs will be stored for the task |
-| log_group_arn   | The ARN of the cloudwatch log group where logs will be stored for the task  |
-| arn             | Full arn of task                                                            |
-| family          | Task Family Name                                                            |
-| revision        | Task Revision Number                                                        |
-| role_id         | Role ID of the Task Role to attach policies to                              |
-| role_arn        | Role ARN of the Task Role to attach policies to                             |
-| role_assume_id  | Role ID of the Task Assume Role to attach policies to                       |
-| role_assume_arn | Role ARN of the Task Assume Role to attach policies to                      |
+| Name           | Description |
+| -------------- | ----------- |
+| arn            |             |
+| id             |             |
+| registry_id    |             |
+| repository_url |             |

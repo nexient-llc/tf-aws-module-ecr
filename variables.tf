@@ -12,17 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-variable "length" {
-  type    = number
-  default = 24
+variable "repo_name" {
+  description = "Name of the ECR Repo to Create."
+  type        = string
 }
 
-variable "number" {
-  type    = bool
-  default = true
+variable "untagged_count_keep" {
+  description = "How many days to keep untagged images?"
+  default     = "1"
 }
 
-variable "special" {
-  type    = bool
-  default = false
+variable "tagged_count_keep" {
+  description = "How many images/tags to keep in repo at any one time?"
+  default     = "20"
+}
+
+variable "image_tag_mutability" {
+  description = "Option to prevent image tags from being overwritten."
+  default     = "IMMUTABLE"
 }
