@@ -1,1 +1,1 @@
-name = "testECR"
+repo_name = "test_repo"

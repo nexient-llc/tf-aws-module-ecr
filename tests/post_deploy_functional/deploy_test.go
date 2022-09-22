@@ -19,7 +19,7 @@ import (
 	"os"
 	"path"
 	"testing"
-	"regexp"
+
 	"github.com/gruntwork-io/terratest/modules/files"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	test_structure "github.com/gruntwork-io/terratest/modules/test-structure"
@@ -60,9 +60,6 @@ func TestRunSuite(t *testing.T) {
 // All methods that begin with "Test" are run as tests within a suite.
 func (suite *TerraTestSuite) TestOutput() {
 	output := terraform.Output(suite.T(), suite.TerraformOptions, "arn")
-
-	// Output contains only alphanumeric characters
-	suite.Regexp(regexp.MustCompile("^[A-Za-z0-9]+$"), output)
 
 	suite.NotEmpty(output, "The task should have an arn")
 }
